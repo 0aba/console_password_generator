@@ -1,9 +1,10 @@
-__all__ = ['pass_gen', 'pass_gen_from_phrase', 'last_result_is_empty', 'copy_to_clipboard']
+__all__ = ['pass_gen', 'pass_gen_from_phrase', 'last_result_is_empty', 'copy_to_clipboard', 'shuffle_pass']
 
+from collections import defaultdict
 from .types import *
 import pyperclip
-import random
 import string
+import random
 
 
 DEFAULT_GENERATION_CHARS = string.ascii_lowercase + string.ascii_uppercase + '-_' + string.digits
@@ -60,3 +61,39 @@ def copy_to_clipboard() -> None:
     text_to_copy: str = '\n'.join(_last_generation)
     pyperclip.copy(text_to_copy)  # info! может быть исключение `pyperclip.PyperclipException`
 
+def _shuffle_pass(password: str, aggressive: bool = False) -> str:
+    if not password: return password
+
+    chars: list[str] = list(password)
+
+    random.shuffle(chars)
+
+    if aggressive:
+        groups: defaultdict = defaultdict(list)
+        for char in chars:
+            if char.isupper():
+                groups['upper'].append(char)
+            elif char.islower():
+                groups['lower'].append(char)
+            elif char.isdigit():
+                groups['digit'].append(char)
+            else:
+                groups['special'].append(char)
+
+        for group in groups.values(): random.shuffle(group)
+
+        shuffled: list[str] = []
+        group_keys: list[str] = list(groups.keys())
+        random.shuffle(group_keys)
+
+        for key in group_keys: shuffled.extend(groups[key])
+
+        return ''.join(shuffled)
+
+    return ''.join(chars)
+
+def shuffle_pass(password: str, aggressive: bool = False) -> str:
+    global _last_generation
+    password: str = _shuffle_pass(password, aggressive=aggressive)
+    _last_generation = [password]
+    return password

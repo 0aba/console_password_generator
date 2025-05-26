@@ -1,8 +1,8 @@
 __all__ = ['start_router_loop']
 
-from ..controllers.controller_pass_gen_from_phrase import controller_pass_gen_from_phrase
-from ..views.view_utils import clear_terminal
+from .controller_pass_gen_from_phrase import controller_pass_gen_from_phrase
 from .controller_pass_gen import controller_pass_gen
+from ..views.view_utils import clear_terminal
 from .types import *
 
 

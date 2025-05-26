@@ -1,7 +1,7 @@
 __all__ = ['start_router_loop']
 
-
 from .controller_pass_gen_from_phrase import controller_pass_gen_from_phrase
+from .controller_check_pass_strength import controller_check_pass_strength
 from .controller_copy_to_clipboard import controller_copy_to_clipboard
 from .controller_pass_gen import controller_pass_gen
 from ..views.view_utils import clear_terminal
@@ -19,6 +19,7 @@ _routers: routers_t = {
     'pass_gen': (controller_pass_gen, 'Генерация паролей',),
     'pass_gen_from_phrase': (controller_pass_gen_from_phrase, 'Сгенерировать пароль на основе фразы',),
     'copy_to_clipboard': (controller_copy_to_clipboard, 'Сохранить последнюю генерацию паролей в буфер обмена'),
+    'check_pass_strength': (controller_check_pass_strength, 'Проверить пароль на надежность'),
 }
 
 def start_router_loop():

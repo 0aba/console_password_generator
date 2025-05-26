@@ -1,5 +1,6 @@
 __all__ = ['start_router_loop']
 
+from ..controllers.controller_check_pass_strength import controller_check_pass_strength
 from ..views.view_utils import clear_terminal
 from .types import *
 
@@ -12,6 +13,7 @@ def _stop_loop():
 
 _routers: routers_t = {
     'exit': (_stop_loop, 'Завершение работы приложения',),
+    'check_pass_strength': (controller_check_pass_strength, 'Проверить пароль на надежность'),
 }
 
 def start_router_loop():

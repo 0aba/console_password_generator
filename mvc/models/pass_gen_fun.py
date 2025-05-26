@@ -1,6 +1,7 @@
-__all__ = ['pass_gen', 'pass_gen_from_phrase']
+__all__ = ['pass_gen', 'pass_gen_from_phrase', 'last_result_is_empty', 'copy_to_clipboard']
 
 from .types import *
+import pyperclip
 import random
 import string
 
@@ -8,7 +9,6 @@ import string
 DEFAULT_GENERATION_CHARS = string.ascii_lowercase + string.ascii_uppercase + '-_' + string.digits
 
 _last_generation: passwords_t = []
-
 
 def _pass_gen(length_pass: int = 8, by_chars: str = DEFAULT_GENERATION_CHARS, amount_result: int = 1) -> passwords_t:
     if length_pass <= 0 or len(by_chars) == 0: return []
@@ -49,4 +49,14 @@ def pass_gen_from_phrase(phrase: str, amount_word: int = 6, amount_result: int =
     _last_generation = result.copy()
 
     return result
+
+def last_result_is_empty() -> bool:
+    global _last_generation
+    return len(_last_generation) == 0
+
+def copy_to_clipboard() -> None:
+    global _last_generation
+
+    text_to_copy: str = '\n'.join(_last_generation)
+    pyperclip.copy(text_to_copy)  # info! может быть исключение `pyperclip.PyperclipException`
 

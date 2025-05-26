@@ -1,5 +1,6 @@
 __all__ = ['start_router_loop']
 
+from ..controllers.controller_shuffle_pass import controller_shuffle_pass
 from ..views.view_utils import clear_terminal
 from .types import *
 
@@ -12,6 +13,7 @@ def _stop_loop():
 
 _routers: routers_t = {
     'exit': (_stop_loop, 'Завершение работы приложения',),
+    'shuffle_pass': (controller_shuffle_pass, 'Перемешать текущий пароль'),
 }
 
 def start_router_loop():

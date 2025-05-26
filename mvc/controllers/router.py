@@ -1,5 +1,6 @@
 __all__ = ['start_router_loop']
 
+from ..controllers.controller_copy_to_clipboard import controller_copy_to_clipboard
 from ..views.view_utils import clear_terminal
 from .types import *
 
@@ -12,6 +13,7 @@ def _stop_loop():
 
 _routers: routers_t = {
     'exit': (_stop_loop, 'Завершение работы приложения',),
+    'copy_to_clipboard': (controller_copy_to_clipboard, 'Сохранить последнюю генерацию паролей в буфер обмена'),
 }
 
 def start_router_loop():

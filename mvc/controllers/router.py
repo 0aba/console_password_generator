@@ -1,5 +1,6 @@
 __all__ = ['start_router_loop']
 
+from ..controllers.controller_pass_gen_from_phrase import controller_pass_gen_from_phrase
 from ..views.view_utils import clear_terminal
 from .controller_pass_gen import controller_pass_gen
 from .types import *
@@ -14,6 +15,7 @@ def _stop_loop():
 _routers: routers_t = {
     'exit': (_stop_loop, 'Завершение работы приложения',),
     'pass_gen': (controller_pass_gen, 'Генерация паролей',),
+    'pass_gen_from_phrase': (controller_pass_gen_from_phrase, 'Сгенерировать пароль на основе фразы',),
 }
 
 def start_router_loop():
